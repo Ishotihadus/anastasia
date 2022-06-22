@@ -1,0 +1,27 @@
+test:
+  ;en: Test
+  ;ja: てすと
+outer:
+  inner:
+    child:
+      ;en: Child
+      ;ja: こども
+      ;de: Kind
+dot.test.test:
+  ;en: DotTestTest
+lines:
+  ;ja:
+    - てすと
+    - ですよ
+  ;en:
+    - This is test.
+    - This is test.
+cascaded:
+  context:
+    ;ja: cascaded.context
+    ;en:
+      _: cascaded.context
+      one: cascaded.context_one
+      other: cascaded.context_other
+      cascaded:
+        context: cascaded.context_cascaded_context

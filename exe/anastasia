@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'anastasia'
+require 'json'
+require 'fileutils'
+require 'yaml'
+
+unless ARGV.size == 2
+  warn "usage: #{$0} input outdir"
+  exit 1
+end
+
+files =
+  if File.file?(ARGV[0])
+    [ARGV[0]]
+  elsif File.directory?(ARGV[0])
+    Dir.glob("#{ARGV[0]}/*.yaml") + Dir.glob("#{ARGV[0]}/*.yml")
+  end
+
+files.each do |file|
+  data = YAML.load_file(file)
+  Anastasia.convert(data).each do |lang, d|
+    FileUtils.mkdir_p("#{ARGV[1]}/#{lang.downcase}")
+    File.write("#{ARGV[1]}/#{lang.downcase}/#{File.basename(file, '.*')}.json", JSON.generate(d))
+  end
+end
